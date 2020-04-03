@@ -6,7 +6,6 @@ import {myFetch} from '../utils'
 
 const {width,scale} = Dimensions.get('window');
 const s=width /640;
-let now = 0;
 export default class Login extends Component {
     constructor(){
         super();
@@ -27,11 +26,14 @@ export default class Login extends Component {
     }
     }
     back=()=>{
-      if (new Date().getTime() - now < 2000) {
+      // let now = 0;
+      if (this.lastBackPressed && this.lastBackPressed + 2000 >= Date.now()) { 
+      // if (new Date().getTime() - now < 2000) {
         BackHandler.exitApp();
       } else {
         ToastAndroid.show('确定要退出吗', 100);
-        now = new Date().getTime();
+        this.lastBackPressed = Date.now(); 
+        // now = new Date().getTime();
         return true;
       }
     }
