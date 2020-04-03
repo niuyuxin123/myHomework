@@ -61,7 +61,8 @@ const App= () => {
   return (
     <Router
       backAndroidHandler={()=>{
-        if(Actions.currentScene != '_home'){
+        console.log(Actions.currentScene )
+        if(Actions.currentScene != '_home'&&Actions.currentScene != 'login'){
           Actions.pop();
           return true;
         }else{

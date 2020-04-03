@@ -6,6 +6,7 @@ import {myFetch} from '../utils'
 
 const {width,scale} = Dimensions.get('window');
 const s=width /640;
+let now=0;
 export default class Login extends Component {
     constructor(){
         super();
@@ -16,26 +17,21 @@ export default class Login extends Component {
         }
     }
     componentDidMount() {
-      if (Platform.OS === 'android') {
         BackHandler.addEventListener('back', this.back);
-      } 
     }
     componentWillUnmount(){
-      if (Platform.OS === 'android') {
         BackHandler.removeEventListener('back', this.back);
-    }
+      
     }
     back=()=>{
-      // let now = 0;
-      if (this.lastBackPressed && this.lastBackPressed + 2000 >= Date.now()) { 
-      // if (new Date().getTime() - now < 2000) {
+      if (new Date().getTime() - now < 2000) {
         BackHandler.exitApp();
-      } else {
+        return;
+      } 
         ToastAndroid.show('确定要退出吗', 100);
-        this.lastBackPressed = Date.now(); 
-        // now = new Date().getTime();
+        now = new Date().getTime();
         return true;
-      }
+      
     }
     userhandle = (text)=>{
         this.setState({username:text})
